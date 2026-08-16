@@ -1,5 +1,3 @@
-
-
 import 'package:ashtech_app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,123 +6,154 @@ import 'package:google_fonts/google_fonts.dart';
 class AppColorSchemes {
   static const lightColorScheme = ColorScheme.light(
     primary: AppColors.primary,
+    onPrimary: Colors.white,
+    secondary: AppColors.secondaryLight,
+    onSecondary: AppColors.textPrimary,
+    surface: AppColors.surface,
+    onSurface: AppColors.textPrimary,
+    background: AppColors.background,
+    onBackground: AppColors.textPrimary,
+    error: AppColors.danger,
+    onError: Colors.white,
+    outline: AppColors.border,
+    inverseSurface: AppColors.textPrimary,
     tertiaryContainer: AppColors.secondaryLight,
-    // inversePrimary: AppColors.secondary,
-    // tertiary: AppColors.lightGrey,
-    // surface: AppColors.purple,
-    // surfaceVariant: AppColors.blackpurple,
-    // shadow: AppColors.darkWhite,
-    // outline: AppColors.blue,
-    // inverseSurface: AppColors.darkblue,
-    // tertiaryContainer: AppColors.darkBlue,
-    // onInverseSurface: AppColors.lightpurple,
-    // onTertiary: AppColors.bodyText,
   );
 
   static const darkColorScheme = ColorScheme.dark(
     primary: AppColors.primary,
-    tertiaryContainer: AppColors.secondaryDark,
-    // inversePrimary: AppColors.primary,
-    // tertiary: AppColors.bodyText,
-    // onSurface: AppColors.purple,
-    // shadow: AppColors.darkWhite,
-    // outline: AppColors.blue,
-    // onInverseSurface: AppColors.darkblue,
-    // onSurfaceVariant: AppColors.blackpurple,
-    // inverseSurface: AppColors.primary,
+    onPrimary: Colors.white,
+    secondary: AppColors.secondaryLight,
+    onSecondary: Colors.white,
+    surface: AppColors.primaryLight,
+    onSurface: Colors.white,
+    background: AppColors.primary,
+    onBackground: Colors.white,
+    error: AppColors.danger,
+    onError: Colors.white,
+    outline: AppColors.border,
+    inverseSurface: Colors.white,
+    tertiaryContainer: AppColors.primaryLight,
   );
 }
 
 class AppTheme {
   static final lightTheme = ThemeData(
+    useMaterial3: true,
     colorScheme: AppColorSchemes.lightColorScheme,
-    textSelectionTheme:
-        const TextSelectionThemeData(cursorColor: AppColors.secondaryDark),
+    scaffoldBackgroundColor: AppColors.background,
+    
+    textSelectionTheme: const TextSelectionThemeData(
+      cursorColor: AppColors.primary,
+      selectionHandleColor: AppColors.primary,
+    ),
+    
     visualDensity: VisualDensity.adaptivePlatformDensity,
+    
     cardTheme: CardThemeData(
+      color: AppColors.surface,
+      elevation: 0,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(12),
+        side: const BorderSide(color: AppColors.border),
       ),
     ),
+    
     appBarTheme: const AppBarTheme(
       systemOverlayStyle: SystemUiOverlayStyle.dark,
       elevation: 0,
-      backgroundColor: AppColors.secondaryLight,
-    ),
-    textTheme: AppTextTheme.textTheme(AppColorSchemes.lightColorScheme),
-    datePickerTheme: const DatePickerThemeData(
-      backgroundColor: AppColors.secondaryLight,
-    ),
-    listTileTheme: ListTileThemeData(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+      scrolledUnderElevation: 0,
+      backgroundColor: AppColors.surface,
+      iconTheme: IconThemeData(color: AppColors.textPrimary),
+      titleTextStyle: TextStyle(
+        color: AppColors.textPrimary,
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
       ),
     ),
-    // timePickerTheme: const TimePickerThemeData(
-    //   dayPeriodColor: AppColors.secondary,
-    //   dayPeriodTextColor: AppColors.white,
-    // ),
-    tooltipTheme: TooltipThemeData(
-      textStyle: AppTextTheme.textTheme(AppColorSchemes.lightColorScheme)
-          .bodyMedium
-          ?.copyWith(
-            color: AppColors.secondaryLight,
-          ),
+    
+    textTheme: AppTextTheme.textTheme(AppColorSchemes.lightColorScheme),
+    primaryTextTheme: AppTextTheme.textTheme(AppColorSchemes.lightColorScheme),
+    
+    datePickerTheme: const DatePickerThemeData(
+      backgroundColor: AppColors.surface,
+      headerBackgroundColor: AppColors.primary,
     ),
+    
+    listTileTheme: ListTileThemeData(
+      tileColor: AppColors.surface,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+        side: const BorderSide(color: AppColors.border),
+      ),
+    ),
+    
+    tooltipTheme: TooltipThemeData(
+      decoration: BoxDecoration(
+        color: AppColors.primary,
+        borderRadius: BorderRadius.circular(6),
+      ),
+      textStyle: AppTextTheme.textTheme(AppColorSchemes.lightColorScheme)
+          .bodySmall
+          ?.copyWith(color: Colors.white),
+    ),
+    
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         elevation: 0,
         backgroundColor: AppColors.primary,
-        foregroundColor: AppColors.primary,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25),
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        minimumSize: const Size(double.infinity, 48),
+        textStyle: GoogleFonts.plusJakartaSans(
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
         ),
-        minimumSize: const Size(double.infinity, 50),
-        textStyle: AppTextTheme.textTheme(AppColorSchemes.lightColorScheme)
-                .bodyLarge ??
-            const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-            ),
       ),
     ),
-    primaryTextTheme: AppTextTheme.textTheme(AppColorSchemes.lightColorScheme),
+    
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         foregroundColor: AppColors.primary,
-        textStyle: const TextStyle(
+        textStyle: GoogleFonts.plusJakartaSans(
           fontSize: 12,
           fontWeight: FontWeight.w600,
-          color: AppColors.secondaryDark,
-        ), // Add your text style here
+        ),
       ),
     ),
 
-    dialogTheme: const DialogThemeData(
-      backgroundColor: AppColors.white,
+    dialogTheme: DialogThemeData(
+      backgroundColor: AppColors.surface,
       surfaceTintColor: Colors.transparent,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
     ),
   );
 
   static final darkTheme = ThemeData(
+    useMaterial3: true,
     colorScheme: AppColorSchemes.darkColorScheme,
-    visualDensity: VisualDensity.adaptivePlatformDensity,
-    appBarTheme: AppBarTheme(
+    scaffoldBackgroundColor: AppColors.primary,
+    
+    appBarTheme: const AppBarTheme(
       systemOverlayStyle: SystemUiOverlayStyle.light,
       elevation: 0,
-      backgroundColor: AppColorSchemes.darkColorScheme.primary,
+      scrolledUnderElevation: 0,
+      backgroundColor: AppColors.primary,
     ),
+    
     textTheme: AppTextTheme.textTheme(AppColorSchemes.darkColorScheme),
     primaryTextTheme: AppTextTheme.textTheme(AppColorSchemes.darkColorScheme),
+    
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         elevation: 0,
-        backgroundColor: AppColors.primary,
-        foregroundColor: AppColors.primary,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-        minimumSize: const Size(double.infinity, 50),
-        textStyle: const TextStyle(
-          fontSize: 12,
+        backgroundColor: AppColors.primaryLight,
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        minimumSize: const Size(double.infinity, 48),
+        textStyle: GoogleFonts.plusJakartaSans(
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
         ),
       ),
     ),
@@ -133,59 +162,58 @@ class AppTheme {
 
 class AppTextTheme {
   static TextTheme textTheme(ColorScheme colorScheme) => TextTheme(
-        /// Use this for titles like in app bars etc
         displayLarge: GoogleFonts.plusJakartaSans(
           color: colorScheme.inverseSurface,
           fontSize: 24,
           fontWeight: FontWeight.bold,
         ),
-
-        /// Use this for attribute title or sub headings
-        titleLarge: GoogleFonts.plusJakartaSans(
-          color: colorScheme.inverseSurface,
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-        ),
-
-        /// Use this for when to bold any kind of attributes in a card or UI widget
-        bodyLarge: GoogleFonts.plusJakartaSans(
-          color: colorScheme.inverseSurface,
-          fontSize: 14,
-          fontWeight: FontWeight.bold,
-        ),
-
+        
         displayMedium: GoogleFonts.plusJakartaSans(
           color: colorScheme.inverseSurface,
           fontSize: 24,
           fontWeight: FontWeight.w600,
         ),
 
-        /// Used for bold headings of textfields and other widgets
+        titleLarge: GoogleFonts.plusJakartaSans(
+          color: colorScheme.inverseSurface,
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+
         titleMedium: GoogleFonts.plusJakartaSans(
           color: colorScheme.inverseSurface,
           fontSize: 16,
           fontWeight: FontWeight.w500,
         ),
 
-        /// Use this for any kind of attributes in a card or UI widget
-        bodyMedium: GoogleFonts.plusJakartaSans(
-          color: colorScheme.inverseSurface,
-          fontSize: 14,
-          fontWeight: FontWeight.w500,
-        ),
-
-        /// Used for non bold/regular headings of textfields and other widgets
         titleSmall: GoogleFonts.plusJakartaSans(
           color: colorScheme.inverseSurface,
           fontSize: 14,
           fontWeight: FontWeight.w400,
         ),
 
-        /// Use this for any kind of attributes in a card or UI widget
+        bodyLarge: GoogleFonts.plusJakartaSans(
+          color: colorScheme.inverseSurface,
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+        ),
+
+        bodyMedium: GoogleFonts.plusJakartaSans(
+          color: colorScheme.inverseSurface,
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+        ),
+
         bodySmall: GoogleFonts.plusJakartaSans(
-          fontWeight: FontWeight.w400,
           color: colorScheme.inverseSurface,
           fontSize: 11,
+          fontWeight: FontWeight.w400,
+        ),
+
+        labelSmall: GoogleFonts.plusJakartaSans(
+          color: colorScheme.inverseSurface,
+          fontSize: 10,
+          fontWeight: FontWeight.w600,
         ),
       );
 }

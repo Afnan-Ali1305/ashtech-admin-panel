@@ -59,21 +59,19 @@ dev_dependencies:
 
 flutter_launcher_icons:
   android: true
-  # Adaptive Icon Backgrounds (Solid hex code for themed UI/dark mode compliance)
-  adaptive_icon_background: "#FBB466"
+  adaptive_icon_background: "#FFFFFF"
   adaptive_icon_foreground: "assets/logo/ashtech.png"
 
   ios: true
   image_path: "assets/logo/ashtech.png"
-  # iOS background color & alpha configuration
   background_color_ios: "#FFFFFF"
-  remove_alpha_ios: false
+  remove_alpha_ios: true
 
   web:
     generate: true
     image_path: "assets/logo/ashtech.png"
-    background_color: "#FBB466"
-    theme_color: "#FBB466"
+    background_color: "#FFFFFF"
+    theme_color: "#FBB466" # Browser theme / title bar ke liye primary color
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
