@@ -1,6 +1,5 @@
 import 'package:ashtech_app/core/extension/extension_constant.dart';
 import 'package:ashtech_app/core/routes/app_router.gr.dart';
-import 'package:ashtech_app/core/theme/app_colors.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +9,9 @@ class NavigationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final surfaceColor = context.colorScheme.surface;
+    final iconAndLabelColor = context.colorScheme.onSurface;
+
     return AutoTabsRouter(
       routes: const [
         DashboardRoute(),
@@ -23,61 +25,69 @@ class NavigationScreen extends StatelessWidget {
 
         return Scaffold(
           body: child,
+          bottomNavigationBar: NavigationBarTheme(
+            data: NavigationBarThemeData(
+              backgroundColor: surfaceColor,
 
-          bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: AppColors.primary,
+              labelTextStyle: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.selected)) {
+                  return context.textTheme.labelSmall?.copyWith(
+                    color: iconAndLabelColor,
+                    fontWeight: FontWeight.bold,
+                  );
+                }
 
-            currentIndex: tabsRouter.activeIndex,
-
-            onTap: (index) {
-              tabsRouter.setActiveIndex(index);
-            },
-
-            type: BottomNavigationBarType.fixed,
-
-            // Selected item
-            selectedItemColor: AppColors.secondaryLight,
-            selectedLabelStyle: context.textTheme.bodySmall?.copyWith(
-              color: AppColors.secondaryLight,
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
+                return context.textTheme.labelSmall?.copyWith(
+                  color: iconAndLabelColor,
+                );
+              }),
             ),
+            child: BottomNavigationBar(
+              backgroundColor: surfaceColor,
+              currentIndex: tabsRouter.activeIndex,
+              onTap: (index) => tabsRouter.setActiveIndex(index),
+              type: BottomNavigationBarType.fixed,
 
-            // Unselected item
-            unselectedItemColor: AppColors.navUnSelected,
-            unselectedLabelStyle: context.textTheme.bodySmall?.copyWith(
-              color: AppColors.navUnSelected,
-              fontSize: 11,
-              fontWeight: FontWeight.w400,
+              selectedItemColor: iconAndLabelColor,
+              unselectedItemColor: iconAndLabelColor,
+
+              selectedLabelStyle: context.textTheme.labelSmall?.copyWith(
+                color: iconAndLabelColor,
+                fontWeight: FontWeight.bold,
+              ),
+
+              unselectedLabelStyle: context.textTheme.labelSmall?.copyWith(
+                color: iconAndLabelColor,
+              ),
+
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.dashboard_outlined),
+                  activeIcon: Icon(Icons.dashboard),
+                  label: 'Dashboard',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.people_outline),
+                  activeIcon: Icon(Icons.people),
+                  label: 'Employees',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.person_outline),
+                  activeIcon: Icon(Icons.person),
+                  label: 'Clients',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.assignment_outlined),
+                  activeIcon: Icon(Icons.assignment),
+                  label: 'Projects',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.account_balance_wallet_outlined),
+                  activeIcon: Icon(Icons.account_balance_wallet),
+                  label: 'Finance',
+                ),
+              ],
             ),
-
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.dashboard_outlined),
-                activeIcon: Icon(Icons.dashboard),
-                label: 'Dashboard',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.people_outline),
-                activeIcon: Icon(Icons.people),
-                label: 'Employees',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person_outline),
-                activeIcon: Icon(Icons.person),
-                label: 'Clients',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.assignment_outlined),
-                activeIcon: Icon(Icons.assignment),
-                label: 'Projects',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.account_balance_wallet_outlined),
-                activeIcon: Icon(Icons.account_balance_wallet),
-                label: 'Finance',
-              ),
-            ],
           ),
         );
       },

@@ -1,6 +1,6 @@
 import 'package:ashtech_app/core/routes/app_router.dart';
 import 'package:ashtech_app/core/theme/app_text_theme.dart';
-import 'package:ashtech_app/theme_provider.dart';
+import 'package:ashtech_app/utils/provider/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -21,7 +21,7 @@ class MyApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: themeMode, // Riverpod state ke mutabiq dynamic switch hoga
+      themeMode: themeMode, 
       routerConfig: appRouter.config(),
     );
   }

@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AppColorSchemes {
+abstract class AppColorSchemes {
+  AppColorSchemes._();
+
   static const lightColorScheme = ColorScheme.light(
     primary: AppColors.primary,
     onPrimary: Colors.white,
@@ -11,59 +13,63 @@ class AppColorSchemes {
     onSecondary: AppColors.textPrimary,
     surface: AppColors.surface,
     onSurface: AppColors.textPrimary,
+    onSurfaceVariant: AppColors.textMuted,
     background: AppColors.background,
     onBackground: AppColors.textPrimary,
     error: AppColors.danger,
     onError: Colors.white,
     outline: AppColors.border,
-    inverseSurface: AppColors.textPrimary,
     tertiaryContainer: AppColors.secondaryLight,
   );
 
   static const darkColorScheme = ColorScheme.dark(
     primary: AppColors.primary,
     onPrimary: Colors.white,
-    secondary: AppColors.secondaryLight,
+    secondary: AppColors.primaryLight,
     onSecondary: Colors.white,
     surface: AppColors.primaryLight,
     onSurface: Colors.white,
+    onSurfaceVariant: AppColors.navUnSelected,
     background: AppColors.primary,
     onBackground: Colors.white,
     error: AppColors.danger,
     onError: Colors.white,
-    outline: AppColors.border,
-    inverseSurface: Colors.white,
+    outline: AppColors.primaryLight,
     tertiaryContainer: AppColors.primaryLight,
   );
 }
 
-class AppTheme {
+abstract class AppTheme {
+  AppTheme._();
+
+  // Shared Card Decoration Properties
+  static final _cardShape = RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(16),
+  );
+
+  // LIGHT THEME
   static final lightTheme = ThemeData(
     useMaterial3: true,
     colorScheme: AppColorSchemes.lightColorScheme,
     scaffoldBackgroundColor: AppColors.background,
-    
     textSelectionTheme: const TextSelectionThemeData(
       cursorColor: AppColors.primary,
       selectionHandleColor: AppColors.primary,
     ),
-    
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    
+
     cardTheme: CardThemeData(
       color: AppColors.surface,
       elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: const BorderSide(color: AppColors.border),
-      ),
+      margin: EdgeInsets.zero,
+      shape: _cardShape,
     ),
-    
+
     appBarTheme: const AppBarTheme(
       systemOverlayStyle: SystemUiOverlayStyle.dark,
       elevation: 0,
       scrolledUnderElevation: 0,
-      backgroundColor: AppColors.surface,
+      backgroundColor: Colors.transparent,
       iconTheme: IconThemeData(color: AppColors.textPrimary),
       titleTextStyle: TextStyle(
         color: AppColors.textPrimary,
@@ -71,33 +77,26 @@ class AppTheme {
         fontWeight: FontWeight.bold,
       ),
     ),
-    
+
     textTheme: AppTextTheme.textTheme(AppColorSchemes.lightColorScheme),
     primaryTextTheme: AppTextTheme.textTheme(AppColorSchemes.lightColorScheme),
-    
-    datePickerTheme: const DatePickerThemeData(
+
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: AppColors.surface,
-      headerBackgroundColor: AppColors.primary,
+      selectedItemColor: AppColors.primary,
+      unselectedItemColor: AppColors.navUnSelected,
+      type: BottomNavigationBarType.fixed,
+      elevation: 8,
     ),
-    
+
     listTileTheme: ListTileThemeData(
       tileColor: AppColors.surface,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-        side: const BorderSide(color: AppColors.border),
+        borderRadius: BorderRadius.circular(12),
       ),
     ),
-    
-    tooltipTheme: TooltipThemeData(
-      decoration: BoxDecoration(
-        color: AppColors.primary,
-        borderRadius: BorderRadius.circular(6),
-      ),
-      textStyle: AppTextTheme.textTheme(AppColorSchemes.lightColorScheme)
-          .bodySmall
-          ?.copyWith(color: Colors.white),
-    ),
-    
+
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         elevation: 0,
@@ -111,7 +110,7 @@ class AppTheme {
         ),
       ),
     ),
-    
+
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         foregroundColor: AppColors.primary,
@@ -129,21 +128,56 @@ class AppTheme {
     ),
   );
 
+  // DARK THEME
   static final darkTheme = ThemeData(
     useMaterial3: true,
     colorScheme: AppColorSchemes.darkColorScheme,
     scaffoldBackgroundColor: AppColors.primary,
-    
+    textSelectionTheme: const TextSelectionThemeData(
+      cursorColor: Colors.white,
+      selectionHandleColor: Colors.white,
+    ),
+    visualDensity: VisualDensity.adaptivePlatformDensity,
+
+    cardTheme: CardThemeData(
+      color: AppColors.primaryLight,
+      elevation: 0,
+      margin: EdgeInsets.zero,
+      shape: _cardShape,
+    ),
+
     appBarTheme: const AppBarTheme(
       systemOverlayStyle: SystemUiOverlayStyle.light,
       elevation: 0,
       scrolledUnderElevation: 0,
-      backgroundColor: AppColors.primary,
+      backgroundColor: Colors.transparent,
+      iconTheme: IconThemeData(color: Colors.white),
+      titleTextStyle: TextStyle(
+        color: Colors.white,
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+      ),
     ),
-    
+
     textTheme: AppTextTheme.textTheme(AppColorSchemes.darkColorScheme),
     primaryTextTheme: AppTextTheme.textTheme(AppColorSchemes.darkColorScheme),
-    
+
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: AppColors.primary,
+      selectedItemColor: Colors.white,
+      unselectedItemColor: AppColors.navUnSelected,
+      type: BottomNavigationBarType.fixed,
+      elevation: 8,
+    ),
+
+    listTileTheme: ListTileThemeData(
+      tileColor: AppColors.primaryLight,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+    ),
+
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         elevation: 0,
@@ -157,63 +191,93 @@ class AppTheme {
         ),
       ),
     ),
+
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        foregroundColor: Colors.white,
+        textStyle: GoogleFonts.plusJakartaSans(
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    ),
+
+    dialogTheme: DialogThemeData(
+      backgroundColor: AppColors.primaryLight,
+      surfaceTintColor: Colors.transparent,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+    ),
   );
 }
 
-class AppTextTheme {
+
+abstract class AppTextTheme {
+  AppTextTheme._();
+
   static TextTheme textTheme(ColorScheme colorScheme) => TextTheme(
+        // Big Financial Values & Primary Numbers (e.g., "$1,203.00", "201", "23")
         displayLarge: GoogleFonts.plusJakartaSans(
-          color: colorScheme.inverseSurface,
-          fontSize: 24,
+          color: colorScheme.onSurface,
+          fontSize: 28,
+          fontWeight: FontWeight.bold,
+          letterSpacing: -0.5,
+        ),
+
+        // Screen Titles & Main Headers
+        displayMedium: GoogleFonts.plusJakartaSans(
+          color: colorScheme.onSurface,
+          fontSize: 22,
           fontWeight: FontWeight.bold,
         ),
-        
-        displayMedium: GoogleFonts.plusJakartaSans(
-          color: colorScheme.inverseSurface,
-          fontSize: 24,
+
+        // Section Headers (e.g., "Recent activity", "Financial charts")
+        titleLarge: GoogleFonts.plusJakartaSans(
+          color: colorScheme.onSurface,
+          fontSize: 18,
+          fontWeight: FontWeight.w700,
+        ),
+
+        // Sub-headings & Card Titles (e.g., "Active employees", "Total Outflow")
+        titleMedium: GoogleFonts.plusJakartaSans(
+          color: colorScheme.onSurfaceVariant,
+          fontSize: 15,
           fontWeight: FontWeight.w600,
         ),
 
-        titleLarge: GoogleFonts.plusJakartaSans(
-          color: colorScheme.inverseSurface,
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
+        // List Item Titles (e.g., "Soban Farooq...")
+        titleSmall: GoogleFonts.plusJakartaSans(
+          color: colorScheme.onSurface,
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
         ),
 
-        titleMedium: GoogleFonts.plusJakartaSans(
-          color: colorScheme.inverseSurface,
-          fontSize: 16,
+        // Primary Body Text & Action Labels (e.g., "Login", "Monthly dropdown")
+        bodyLarge: GoogleFonts.plusJakartaSans(
+          color: colorScheme.onSurface,
+          fontSize: 14,
           fontWeight: FontWeight.w500,
         ),
 
-        titleSmall: GoogleFonts.plusJakartaSans(
-          color: colorScheme.inverseSurface,
-          fontSize: 14,
+        // Subtitles & Secondary Information
+        bodyMedium: GoogleFonts.plusJakartaSans(
+          color: colorScheme.onSurfaceVariant,
+          fontSize: 13,
           fontWeight: FontWeight.w400,
         ),
 
-        bodyLarge: GoogleFonts.plusJakartaSans(
-          color: colorScheme.inverseSurface,
-          fontSize: 14,
-          fontWeight: FontWeight.bold,
-        ),
-
-        bodyMedium: GoogleFonts.plusJakartaSans(
-          color: colorScheme.inverseSurface,
-          fontSize: 14,
-          fontWeight: FontWeight.w500,
-        ),
-
+        // Timestamps & Minor Details (e.g., "Jul 29, 2023 17:02", Chart Months)
         bodySmall: GoogleFonts.plusJakartaSans(
-          color: colorScheme.inverseSurface,
+          color: colorScheme.onSurfaceVariant.withOpacity(0.75),
           fontSize: 11,
           fontWeight: FontWeight.w400,
         ),
 
+        // Bottom Navigation & Badges (e.g., "Dashboard", "Employees")
         labelSmall: GoogleFonts.plusJakartaSans(
-          color: colorScheme.inverseSurface,
+          color: colorScheme.onSurface,
           fontSize: 10,
           fontWeight: FontWeight.w600,
+          letterSpacing: 0.2,
         ),
       );
 }

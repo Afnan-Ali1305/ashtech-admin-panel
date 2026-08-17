@@ -10,13 +10,11 @@ class AppRouter extends RootStackRouter {
     CustomRoute(
       page: SplashRoute.page,
       transitionsBuilder: TransitionsBuilders.fadeIn,
-      // initial: true,
+      initial: true,
     ),
     CustomRoute(
       page: NavigationRoute.page,
       transitionsBuilder: TransitionsBuilders.fadeIn,
-      initial: true,
-
       children: [
         CustomRoute(
           page: DashboardRoute.page,
